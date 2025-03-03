@@ -98,4 +98,3 @@ class Paket(models.Model):
         ('Доступ к курсу “DevOps - инженер”', 'Доступ к курсу “DevOps - инженер”')
     )
     status = MultiSelectField(choices=STATUS_CHOICES)
-
