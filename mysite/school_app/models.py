@@ -1,9 +1,12 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from multiselectfield import MultiSelectField
+from django.core.validators import MinValueValidator, MaxValueValidator
+
 
 class UserProfile(AbstractUser):
-    age = models.PositiveSmallIntegerField(default=0, null=True, blank=True)
+    age = models.PositiveSmallIntegerField(default=0, validators=[MinValueValidator(12), MaxValueValidator(70)],
+                                           null=True, blank=True)
     STATUS_GENDER = (
         ('man', 'Man'),
         ('woman', 'Woman')
@@ -28,13 +31,12 @@ class Articles(models.Model):
     image = models.ImageField(upload_to='article_image')
     title = models.CharField(max_length=100)
     description = models.TextField()
+    created_date = models.DateField(auto_now_add=True)
 
 
 class AboutUs(models.Model):
     title = models.CharField(max_length=100)
     description = models.TextField()
-    image = models.ImageField(null=True, blank=True)
-    certificate = models.URLField()
 
 
 class AboutUsImage(models.Model):
@@ -48,10 +50,16 @@ class Certificate(models.Model):
     about_us = models.ForeignKey(AboutUs, related_name='about_us', on_delete=models.CASCADE)
 
 
+class AboutSchool(models.Model):
+    name = models.CharField(max_length=200)
+    school_description = models.TextField()
+
+
 class Courses(models.Model):
     course_name = models.CharField(max_length=100)
     description = models.TextField()
     access = models.CharField(max_length=100)
+    about_school = models.ForeignKey(AboutSchool, on_delete=models.CASCADE, related_name='courses')
 
 
 class Question(models.Model):
@@ -64,6 +72,7 @@ class Question(models.Model):
 class MasterClass(models.Model):
     title = models.CharField(max_length=100)
     description = models.TextField()
+    school = models.ForeignKey(AboutSchool, on_delete=models.CASCADE, related_name='master_class')
 
 
 class Rating(models.Model):
@@ -74,6 +83,7 @@ class Rating(models.Model):
     about_us = models.ForeignKey(AboutUs, related_name='rating_about', on_delete=models.CASCADE, null=True, blank=True)
     course = models.ForeignKey(Courses, related_name='rating_course', on_delete=models.CASCADE)
     master_class = models.ForeignKey(MasterClass, related_name='rating_master', on_delete=models.CASCADE)
+    about_school = models.ForeignKey(AboutSchool, on_delete=models.CASCADE, related_name='school_rating')
 
 
 class AboutCourses(models.Model):
@@ -98,3 +108,4 @@ class Paket(models.Model):
         ('Доступ к курсу “DevOps - инженер”', 'Доступ к курсу “DevOps - инженер”')
     )
     status = MultiSelectField(choices=STATUS_CHOICES)
+    about_school = models.ForeignKey(AboutSchool, on_delete=models.CASCADE, related_name='packets')

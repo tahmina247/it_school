@@ -8,17 +8,22 @@ class UserProfileViewSet(viewsets.ModelViewSet):
     serializer_class = UserProfileSerializer
 
 
-class ItViewSet(viewsets.ModelViewSet):
+class ItListApiView(generics.ListAPIView):
     queryset = It.objects.all()
     serializer_class = ItSerializer
 
 
-class ArticlesViewSet(viewsets.ModelViewSet):
+class ArticlesListView(generics.ListAPIView):
     queryset = Articles.objects.all()
-    serializer_class = ArticlesSerializer
+    serializer_class = ArticlesListSerializer
 
 
-class AboutUsViewSet(viewsets.ModelViewSet):
+class ArticlesDetailView(generics.RetrieveAPIView):
+    queryset = Articles.objects.all()
+    serializer_class = ArticlesDetailSerializer
+
+
+class AboutUsApiView(generics.ListAPIView):
     queryset = AboutUs.objects.all()
     serializer_class = AboutUsSerializer
 
@@ -33,19 +38,34 @@ class CertificateViewSet(viewsets.ModelViewSet):
     serializer_class = CertificateSerializer
 
 
-class CoursesViewSet(viewsets.ModelViewSet):
+class CoursesListAPIView(generics.ListAPIView):
     queryset = Courses.objects.all()
-    serializer_class = CoursesSerializer
+    serializer_class = CoursesListSerializer
 
 
-class QuestionViewSet(viewsets.ModelViewSet):
+class CoursesDetailAPIView(generics.ListAPIView):
+    queryset = Courses.objects.all()
+    serializer_class = CoursesDetailSerializer
+
+
+class QuestionListApiView(generics.ListAPIView):
     queryset = Question.objects.all()
-    serializer_class = QuestionSerializer
+    serializer_class = QuestionListSerializer
 
 
-class MasterClassViewSet(viewsets.ModelViewSet):
+class QuestionDetailAPIlView(generics.RetrieveAPIView):
+    queryset = Question.objects.all()
+    serializer_class = QuestionDetailSerializer
+
+
+class MasterClassListAPIView(generics.ListAPIView):
     queryset = MasterClass.objects.all()
-    serializer_class = MasterClassSerializer
+    serializer_class = MasterClassListSerializer
+
+
+class MasterClassDetailAPIView(generics.RetrieveAPIView):
+    queryset = MasterClass.objects.all()
+    serializer_class = MasterClassDetailSerializer
 
 
 class RatingViewSet(viewsets.ModelViewSet):
@@ -53,11 +73,21 @@ class RatingViewSet(viewsets.ModelViewSet):
     serializer_class = RatingSerializer
 
 
-class AboutCoursesViewSet(viewsets.ModelViewSet):
+class AboutCoursesAPiView(generics.ListAPIView):
     queryset = AboutCourses.objects.all()
     serializer_class = AboutCoursesSerializer
 
 
-class PaketViewSet(viewsets.ModelViewSet):
+class PaketListAPIView(generics.ListAPIView):
     queryset = Paket.objects.all()
-    serializer_class = PaketSerializer
+    serializer_class = PaketListSerializer
+
+
+class PaketDetailAPIView(generics.RetrieveAPIView):
+    queryset = Paket.objects.all()
+    serializer_class = PaketDetailSerializer
+
+
+class AboutSchoolAPIView(generics.ListAPIView):
+    queryset = AboutSchool.objects.all()
+    serializer_class = AboutSchoolSerializer
