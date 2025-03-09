@@ -3,7 +3,7 @@ from .views import *
 from django.urls import path, include
 
 
-router = routers.DefaultRouter()
+router = routers.SimpleRouter()
 router.register(r'user', UserProfileViewSet, basename='user')
 
 
@@ -21,5 +21,5 @@ urlpatterns = [
     path('paket/<int:pk>/', PaketDetailAPIView.as_view(), name='paket_detail'),
     path('about_school/', AboutSchoolAPIView.as_view(), name='about_school'),
     path('questions/', QuestionApiView.as_view(), name='questions'),
-    path('contact/', ContactInfoViewSet.as_view(), name = 'contact')
+    path('contact/', ContactInfoViewSet.as_view(), name='contact')
 ]
